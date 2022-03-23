@@ -75,16 +75,12 @@ API DOCS 文件
 
 ## Acknowledgments
 
-Use this space to list resources you find helpful and would like to give credit to. I've included a few of my favorites to kick things off!
-
 - [Node.js API Docs](https://nodejs.org/dist/latest-v16.x/docs/api/)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-
-https://github.com/Albertnotes/Hex-Node-TodoList
 
 [contributors-shield]: https://img.shields.io/github/contributors/Albertnotes/Hex-Node-TodoList.svg?style=for-the-badge
 [contributors-url]: https://github.com/Albertnotes/Hex-Node-TodoList/graphs/contributors
