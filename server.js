@@ -2,6 +2,7 @@ const http = require('http');
 const { v4: uuidv4 } = require('uuid');
 const errorHandle = require('./errorHandle');
 const ValidationError = require('./ValidationError');
+const PORT = process.env.PORT || 3005;
 const todos = [];
 
 const requestListener = (req, res) => {
@@ -138,4 +139,6 @@ const requestListener = (req, res) => {
 };
 
 const server = http.createServer(requestListener);
-server.listen(process.env.PORT || 3005);
+server.listen(PORT, () => {
+	console.log(`[Message]: Server is listening on port ${PORT}`);
+});
