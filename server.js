@@ -132,7 +132,6 @@ const requestListener = (req, res) => {
 		JSON.stringify({
 			status: 'ERROR',
 			message: '查無此網站路由',
-			p,
 		})
 	);
 	res.end();
