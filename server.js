@@ -5,6 +5,7 @@ const ValidationError = require('./ValidationError');
 const todos = [];
 
 const requestListener = (req, res) => {
+	const { url, method } = req;
 	const headers = {
 		'Access-Control-Allow-Headers':
 			'Content-Type, Authorization, Content-Length, X-Requested-With',
@@ -12,20 +13,17 @@ const requestListener = (req, res) => {
 		'Access-Control-Allow-Methods': 'PATCH, POST, GET,OPTIONS,DELETE',
 		'Content-Type': 'application/json',
 	};
-	const splitRequest = (url, method = 'GET') =>
-		req.url === url && req.method === method;
-
 	let body = '';
 	req.on('data', chunk => {
 		body += chunk;
 	});
 
-	if (req.method === 'OPTIONS') {
+	if (method === 'OPTIONS') {
 		res.writeHead(200, headers);
 		res.end();
 		return;
 	}
-	if (splitRequest('/todos')) {
+	if (url === '/todos' && method === 'GET') {
 		res.writeHead(200, headers);
 		res.write(
 			JSON.stringify({
@@ -36,7 +34,7 @@ const requestListener = (req, res) => {
 		res.end();
 		return;
 	}
-	if (splitRequest('/todos', 'POST')) {
+	if (url === '/todos' && method === 'POST') {
 		req.on('end', () => {
 			try {
 				const bodyObj = JSON.parse(body);
@@ -66,11 +64,74 @@ const requestListener = (req, res) => {
 		return;
 	}
 
+	if (url === '/todos' && method === 'DELETE') {
+		todos.length = 0;
+		res.writeHead(200, headers);
+		res.write(
+			JSON.stringify({
+				status: 'SUCCESS',
+				data: todos,
+			})
+		);
+		res.end();
+		return;
+	}
+	if (url.startsWith('/todos/') && method === 'DELETE') {
+		try {
+			const id = url.split('/').pop();
+			const idx = todos.findIndex(todo => todo.id === id);
+			if (idx === -1) {
+				throw new ValidationError('待辦事項不存在');
+			}
+			res.writeHead(200, headers);
+			res.write(
+				JSON.stringify({
+					status: 'SUCCESS',
+					data: todos,
+				})
+			);
+			res.end();
+		} catch (error) {
+			errorHandle(res, error);
+		}
+		return;
+	}
+	if (url.startsWith('/todos/') && method === 'PATCH') {
+		req.on('end', () => {
+			try {
+				const bodyObj = JSON.parse(body);
+				const id = url.split('/').pop();
+				const idx = todos.findIndex(todo => todo.id === id);
+				if (
+					Array.isArray(bodyObj) ||
+					!Object.getOwnPropertyNames(bodyObj).includes('title')
+				) {
+					throw new ValidationError('資料結構錯誤');
+				}
+				if (idx === -1) {
+					throw new ValidationError('待辦事項不存在');
+				}
+				todos[idx].title = bodyObj.title;
+				res.writeHead(200, headers);
+				res.write(
+					JSON.stringify({
+						status: 'SUCCESS',
+						data: todos,
+					})
+				);
+				res.end();
+			} catch (error) {
+				errorHandle(res, error);
+			}
+		});
+		return;
+	}
 	res.writeHead(404, headers);
 	res.write(
 		JSON.stringify({
 			status: 'ERROR',
 			message: '查無此網站路由',
+			p,
 		})
 	);
 	res.end();

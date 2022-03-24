@@ -30,7 +30,7 @@ function errorHandle(res, error) {
 	res.write(
 		JSON.stringify({
 			status: 'ERROR',
-			message: 'json parser error',
+			message: 'json parser error or other error',
 		})
 	);
 	res.end();
