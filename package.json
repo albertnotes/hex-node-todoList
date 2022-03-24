@@ -5,11 +5,14 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon server.js"
+    "start": "node server.js"
   },
   "author": "Albert",
   "license": "ISC",
   "dependencies": {
     "uuid": "^8.3.2"
+  },
+  "engines":{
+    "node":"16.x"
   }
 }
