@@ -44,7 +44,16 @@
         <li><a href="#built-with">Built With</a></li>
       </ul>
     </li>
-    <li><a href="#usage">Usage</a></li>
+    <li>
+    <a href="#usage">Usage</a>
+    <ul>
+        <li><a href="#取得所有待辦事項">取得所有待辦事項</a></li>
+        <li><a href="#新增單筆待辦事項">新增單筆待辦事項</a></li>
+        <li><a href="#刪除所有待辦事項">刪除所有待辦事項</a></li>
+        <li><a href="#刪除單筆待辦事項">刪除單筆待辦事項</a></li>
+        <li><a href="#編輯單筆待辦事項">編輯單筆待辦事項</a></li>
+      </ul>
+    </li>
     <li><a href="#acknowledgments">Acknowledgments</a></li>
   </ol>
 </details>
@@ -107,12 +116,6 @@
   ```c
   curl --location --request GET 'https://serene-hamlet-24967.herokuapp.com/todos'
   ```
-
-API DOCS 文件
-
-<p align="right">(<a href="#top">back to top</a>)</p>
-
-<!-- ACKNOWLEDGMENTS -->
 
 ### **新增單筆待辦事項**
 
@@ -367,6 +370,10 @@ API DOCS 文件
       "title":"example"
   }'
   ```
+
+<p align="right">(<a href="#top">back to top</a>)</p>
+
+<!-- ACKNOWLEDGMENTS -->
 
 ## Acknowledgments
 
