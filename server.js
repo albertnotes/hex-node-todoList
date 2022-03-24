@@ -1,11 +1,6 @@
 const http = require('http');
 const { v4: uuidv4 } = require('uuid');
-const todos = [
-	{
-		id: uuidv4(),
-		title: '今天要刷牙',
-	},
-];
+const todos = [];
 
 const requestListener = (req, res) => {
 	const headers = {
@@ -20,11 +15,7 @@ const requestListener = (req, res) => {
 
 	let body = '';
 	req.on('data', chunk => {
-		console.log(chunk);
 		body += chunk;
-	});
-	req.on('end', () => {
-		console.log('data', body);
 	});
 
 	if (req.method === 'OPTIONS') {
@@ -40,14 +31,22 @@ const requestListener = (req, res) => {
 		);
 		res.end();
 	} else if (splitRequest('/todos', 'POST')) {
-		res.writeHead(201, headers);
-		res.write(
-			JSON.stringify({
-				status: 'SUCCESS',
-				data: todos,
-			})
-		);
-		res.end();
+		req.on('end', () => {
+			const title = JSON.parse(body).title;
+			const todo = {
+				id: uuidv4(),
+				title: title,
+			};
+			todos.push(todo);
+			res.writeHead(201, headers);
+			res.write(
+				JSON.stringify({
+					status: 'SUCCESS',
+					data: todos,
+				})
+			);
+			res.end();
+		});
 	} else {
 		res.writeHead(404, headers);
 		res.write(
