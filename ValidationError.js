@@ -1,7 +1,11 @@
-/** custom error */
 class ValidationError extends Error {
-	constructor(message) {
-		super(message);
+	/**
+	 * custom error
+	 * @constructor {message: string, code: number}
+	 *  */
+	constructor(props) {
+		super(props.message);
+		this.code = props.code;
 		this.name = 'ValidationError';
 	}
 }

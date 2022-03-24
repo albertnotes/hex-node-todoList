@@ -14,9 +14,10 @@ function errorHandle(res, error) {
 		'Content-Type': 'application/json',
 	};
 
+	console.log(error);
 	/** custom error */
 	if (error instanceof ValidationError) {
-		res.writeHead(415, headers);
+		res.writeHead(error.code, headers);
 		res.write(
 			JSON.stringify({
 				status: 'ERROR',

@@ -43,7 +43,10 @@ const requestListener = (req, res) => {
 					Array.isArray(bodyObj) ||
 					!Object.getOwnPropertyNames(bodyObj).includes('title')
 				) {
-					throw new ValidationError('資料結構錯誤');
+					throw new ValidationError({
+						code: 415,
+						message: '資料結構錯誤',
+					});
 				}
 				const todo = {
 					id: uuidv4(),
@@ -82,7 +85,10 @@ const requestListener = (req, res) => {
 			const id = url.split('/').pop();
 			const idx = todos.findIndex(todo => todo.id === id);
 			if (idx === -1) {
-				throw new ValidationError('待辦事項不存在');
+				throw new ValidationError({
+					code: 404,
+					message: '待辦事項不存在',
+				});
 			}
 			todos.splice(idx, 1);
 			res.writeHead(200, headers);
@@ -108,10 +114,16 @@ const requestListener = (req, res) => {
 					Array.isArray(bodyObj) ||
 					!Object.getOwnPropertyNames(bodyObj).includes('title')
 				) {
-					throw new ValidationError('資料結構錯誤');
+					throw new ValidationError({
+						code: 415,
+						message: '資料結構錯誤',
+					});
 				}
 				if (idx === -1) {
-					throw new ValidationError('待辦事項不存在');
+					throw new ValidationError({
+						code: 404,
+						message: '待辦事項不存在',
+					});
 				}
 				todos[idx].title = bodyObj.title;
 				res.writeHead(200, headers);
