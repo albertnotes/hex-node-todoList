@@ -84,6 +84,7 @@ const requestListener = (req, res) => {
 			if (idx === -1) {
 				throw new ValidationError('待辦事項不存在');
 			}
+			todos.splice(idx, 1);
 			res.writeHead(200, headers);
 			res.write(
 				JSON.stringify({
