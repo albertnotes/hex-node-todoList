@@ -14,7 +14,6 @@ function errorHandle(res, error) {
 		'Content-Type': 'application/json',
 	};
 
-	console.log(error);
 	/** custom error */
 	if (error instanceof ValidationError) {
 		res.writeHead(error.code, headers);
