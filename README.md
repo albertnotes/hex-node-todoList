@@ -64,8 +64,6 @@
 
 初學 Node.js 不使用框架建立 TodoList RESTful API
 
-重構版本: [v2 版本](https://github.com/albertnotes/hex-node-todoList/tree/v2)
-
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 ### Built With
